@@ -485,7 +485,7 @@ export default function App() {
               ))}
             </div>
 
-            {tasks.length > 0 ? (
+            {tasks.length > 0 || composerOpen ? (
               <Composer
                 open={composerOpen}
                 onClose={() => setComposerOpen(false)}

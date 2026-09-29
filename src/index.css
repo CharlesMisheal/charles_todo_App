@@ -936,6 +936,10 @@ textarea {
     padding: 8px 0 120px;
   }
 
+  .empty {
+    padding-top: 28px;
+  }
+
   .page-head {
     flex-direction: column;
   }

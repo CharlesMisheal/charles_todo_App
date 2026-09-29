@@ -21,6 +21,7 @@ export function Composer({ open, onClose, onCreate }: ComposerProps) {
   useEffect(() => {
     if (!open) return
     titleRef.current?.focus()
+    titleRef.current?.scrollIntoView({ block: 'center' })
   }, [open])
 
   function reset() {
