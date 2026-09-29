@@ -11,6 +11,7 @@ import {
   deleteTask,
   formatHeadingDate,
   matchesFilter,
+  msUntilNextLocalDay,
   matchesSearch,
   mergeTasks,
   parseImport,
@@ -94,11 +95,23 @@ export default function App() {
   }, [theme])
 
   useEffect(() => {
+    let timer = 0
     function refreshToday() {
       setToday(toDateKey(new Date()))
+      window.clearTimeout(timer)
+      timer = window.setTimeout(refreshToday, msUntilNextLocalDay())
     }
+    function refreshWhenVisible() {
+      if (document.visibilityState === 'visible') refreshToday()
+    }
+    refreshToday()
     window.addEventListener('focus', refreshToday)
-    return () => window.removeEventListener('focus', refreshToday)
+    document.addEventListener('visibilitychange', refreshWhenVisible)
+    return () => {
+      window.clearTimeout(timer)
+      window.removeEventListener('focus', refreshToday)
+      document.removeEventListener('visibilitychange', refreshWhenVisible)
+    }
   }, [])
 
   useEffect(() => {

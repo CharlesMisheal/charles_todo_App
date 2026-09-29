@@ -8,6 +8,8 @@ import {
   parseImport,
   selectTasks,
   serializeTasks,
+  formatHeadingDate,
+  msUntilNextLocalDay,
   toDateKey,
   toggleTask,
   updateTask,
@@ -82,6 +84,9 @@ describe('creating a task', () => {
 
   it('uses the local calendar day', () => {
     expect(toDateKey(new Date(2026, 8, 29, 0, 30))).toBe('2026-09-29')
+    expect(formatHeadingDate('2026-09-29')).toBe('Tuesday, 29 September')
+    expect(formatHeadingDate('2026-09-30')).toBe('Wednesday, 30 September')
+    expect(msUntilNextLocalDay(new Date(2026, 8, 29, 23, 0, 0))).toBe(60 * 60 * 1000)
   })
 })
 

@@ -39,6 +39,11 @@ export function toDateKey(date: Date): string {
   return `${year}-${month}-${day}`
 }
 
+export function msUntilNextLocalDay(now = new Date()): number {
+  const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1)
+  return next.getTime() - now.getTime()
+}
+
 export function formatHeadingDate(value: string): string {
   const parts = value.split('-').map(Number)
   const date = new Date(parts[0], parts[1] - 1, parts[2])
